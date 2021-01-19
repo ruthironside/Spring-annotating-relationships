@@ -1,13 +1,12 @@
 package com.example.filesAndFolders.controller;
 
 import com.example.filesAndFolders.models.File;
+import com.example.filesAndFolders.models.User;
 import com.example.filesAndFolders.repository.FileRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -26,5 +25,11 @@ public class FileController {
     @GetMapping(value = "/files/{id}")
     public ResponseEntity getFile(@PathVariable Long id) {
         return new ResponseEntity<>(fileRepository.findById(id), HttpStatus.OK);
+    }
+
+    @PostMapping(value = "/files")
+    public ResponseEntity<User> createFile(@RequestBody File file){
+        fileRepository.save(file);
+        return new ResponseEntity(file, HttpStatus.CREATED);
     }
 }

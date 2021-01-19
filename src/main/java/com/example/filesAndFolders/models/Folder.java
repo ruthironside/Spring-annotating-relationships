@@ -24,7 +24,7 @@ public class Folder {
 
     @JsonIgnoreProperties({"users"})
     @ManyToOne
-    @JoinColumn(name = "user_id", nullable = false)
+    @JoinColumn(name = "user_id")
     private User user;
 
 
@@ -34,9 +34,6 @@ public class Folder {
         this.user = user;
     }
 
-    public Folder(String title) {
-        this.title = title;
-    }
 
     public Folder() {
 
