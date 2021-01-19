@@ -2,6 +2,7 @@ package com.example.filesAndFolders.models;
 
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
 import java.util.List;
@@ -20,6 +21,18 @@ public class Folder {
     @JsonBackReference
     @OneToMany(mappedBy = "folder", fetch = FetchType.LAZY)
     private List<File> files;
+
+    @JsonIgnoreProperties({"users"})
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
+
+
+
+    public Folder(String title, User user) {
+        this.title = title;
+        this.user = user;
+    }
 
     public Folder(String title) {
         this.title = title;
@@ -51,6 +64,14 @@ public class Folder {
 
     public void setFiles(List<File> files) {
         this.files = files;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
 
